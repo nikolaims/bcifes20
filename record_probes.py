@@ -7,6 +7,7 @@ import json
 import numpy as np
 from datetime import datetime
 from pynfb.inlets.lsl_inlet import LSLInlet
+from find_ica_filter import run_ica
 
 
 # parse sys args
@@ -54,4 +55,8 @@ for block_name in exp_settings['sequence']:
 
 # save recorded data
 recorded_data = buffer[:n_samples_received]
-np.save(results_path + 'probes.npy', recorded_data)
+np.savez(results_path + 'probes.npz', data=recorded_data, channels=channels + ['STIM'], fs=fs)
+
+# ica
+ica_results = run_ica(recorded_data[:, :-1], channels, fs)
+np.savez(results_path + 'ica.npz', **ica_results)
