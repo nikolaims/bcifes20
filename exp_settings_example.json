@@ -1,0 +1,10 @@
+{
+  "exp_name": "test",
+  "blocks":
+  {
+    "MOTOR": {"duration": 2, "id":  1},
+    "REST": {"duration": 3, "id":  2}
+  },
+  "sequence": ["MOTOR", "REST", "REST", "MOTOR"],
+  "lsl_stream_name": "EEG_Data"
+}
