@@ -7,7 +7,7 @@ import json
 import numpy as np
 from datetime import datetime
 from pynfb.inlets.lsl_inlet import LSLInlet
-from find_ica_filter import run_ica
+from find_ica_and_band import run_ica_and_select_band
 
 
 # parse sys args
@@ -58,5 +58,5 @@ recorded_data = buffer[:n_samples_received]
 np.savez(results_path + 'probes.npz', data=recorded_data, channels=channels + ['STIM'], fs=fs)
 
 # ica
-ica_results = run_ica(recorded_data[:, :-1], channels, fs)
-np.savez(results_path + 'ica.npz', **ica_results)
+results = run_ica_and_select_band(recorded_data[:, :-1], channels, fs)
+np.savez(results_path + 'ica.npz', **results)
